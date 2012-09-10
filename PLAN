@@ -1,0 +1,80 @@
+
+Push backups to backup server(s). 
+
+Update the time of last completed push in some file at the server, or
+something.
+
+Use hard links, --link-dest and --fake-super etc.
+
+Config settings are saved in json format. A script is used to collect, modify
+and delete config data. The json config file could easily be interpreted and
+modified by a web application or gui desktop app or whatever.
+
+Script could either be run via crontab or as a daemon. Running as a daemon
+allows for more control?
+
+Develop backend-side script to run from authorized_keys command="" to only
+allow backing up, browsing and restoring data. If user ssh's in to account,
+show them a simple CLI interface where they get to know how much space they
+have used, etc. 
+
+How is data transfer tracked?
+
+Is it possible to limit access to the files at the host, using chmod, and
+still keep the original file attributes using --fake-super? Will all the wonky
+OS X file attributes be handled by rsync? Is a newer rsync (from macports)
+required, or will the standard rsync do? Which version is required?
+
+
+At least the following rsync switches should be used:
+
+--acls
+--xattrs
+--archive
+--delete
+--delete-excluded
+--hard-links
+--human-readable
+--inplace
+--link-dest=/path/to/previous/backup
+--exclude=/some/exclude/file
+--one-file-system
+--numeric-ids
+--partial
+--relative
+--fake-super
+
+--perms
+--fileflags
+
+--hfs-compression
+--protect-decmpfs
+--owner
+--group
+--devices
+--specials
+--times
+--crtimes
+
+--sparse?
+
+--partial
+
+--compress
+--progress? if verbose
+
+If supported, use --log-file and perhaps a custom --log-file-format=FMT to log
+transfers (and how much traffic is used) on the backup server. Actually, we
+might as well log on the client end as well and have a separate script read
+the logs and print stats (how much bandwidth we've used, etc)
+
+From man rsync: "This is similar to the logging that a daemon does, but can be
+requested for the client side and/or the server side of a non-daemon
+transfer."
+
+"Here's a example command that requests the remote  side  to  log
+what is happening: rsync -av --rsync-path="rsync --log-file=/tmp/rlog" src/
+dest/". So, just do the --log-file stuff in the command="" setting in
+authorized_keys.
+
+--bwlimit=whatever
