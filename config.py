@@ -36,34 +36,59 @@ class ErrorUnknownConfigOption(Error):
         self.conf = conf
         
 
+'''
+Config superclass. All config subclasses will need access to the
+configuration file. I realise this means the script will read the
+configuration file several times. Is there a neater way of doing this?
+'''
 class Config():
     def __init__(self):
         self.config = json.load(open('backup.json', 'r'))
-        general = config_general()
+        self.load()
 
+'''
+ConfigGeneral contains the stuff in the general block of the configuration
+file. Values can be retrieved and changed like so:
 
-class ConfigGeneral():
-    def __init__(self):
-        self.config = json.load(open('backup.json', 'r'))
-        
+c = ConfigGeneral()
+print c.frequency 
+c.frequency = 1440
+'''
+class ConfigGeneral(Config):
+    def load(self):
         for x in ['frequency', 'log_file', 'log_level', 'verbosity',
         'daemonize']:
             setattr(self, x, self.config['general'][x])
             del(self.config['general'][x])
 
         if self.config['general']:
-            ''' 
-            Entries left in the dictionary? Then they're options unknown to
-            us! Let's complain about it.
-            '''
             raise ErrorUnknownConfigOption(self.config['general'])
-                
-try:
-    conf = ConfigGeneral()
-except ErrorUnknownConfigOption as e:
-    print "Unknown config options were found:"
-    print e.conf
-    sys.exit()
 
-print conf.frequency
-print conf.log_file
+    def save(self):
+        ''' 
+        Might just create a separate script to handle config file
+        manipulation.
+        '''
+        pass
+
+class ConfigServers(Config):
+    def load(self):
+        ''' XXX: Provide a dict containing backup server info? ''' 
+        pass
+
+    def save(self):
+        ''' See ConfigGeneral '''
+        pass
+                
+
+
+if __name__ == "__main__":
+    try:
+        conf = ConfigGeneral()
+    except ErrorUnknownConfigOption as e:
+        print "Unknown config options were found:"
+        print e.conf
+        sys.exit()
+
+    print conf.frequency
+    print conf.log_file
