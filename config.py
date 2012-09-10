@@ -25,25 +25,45 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import json
+import sys
 
-class config():
+
+class Error():
+    pass
+
+class ErrorUnknownConfigOption(Error):
+    def __init__(self, conf):
+        self.conf = conf
+        
+
+class Config():
     def __init__(self):
         self.config = json.load(open('backup.json', 'r'))
-
         general = config_general()
 
-class config_general():
+
+class ConfigGeneral():
     def __init__(self):
         self.config = json.load(open('backup.json', 'r'))
         
-        for x in ['frequency', 'log_file']:
+        for x in ['frequency', 'log_file', 'log_level', 'verbosity',
+        'daemonize']:
             setattr(self, x, self.config['general'][x])
             del(self.config['general'][x])
 
-    def show(self):
-        print self.config
-
-conf = config()
+        if self.config['general']:
+            ''' 
+            Entries left in the dictionary? Then they're options unknown to
+            us! Let's complain about it.
+            '''
+            raise ErrorUnknownConfigOption(self.config['general'])
+                
+try:
+    conf = ConfigGeneral()
+except ErrorUnknownConfigOption as e:
+    print "Unknown config options were found:"
+    print e.conf
+    sys.exit()
 
 print conf.frequency
 print conf.log_file
