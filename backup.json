@@ -1,0 +1,31 @@
+{
+    "general": {
+        "frequency": 1440,
+        "log_file": "/Users/sjk/logs/backup.log",
+        "log_level": 3,
+        "verbosity": 3,
+        "daemonize": true
+    },
+    "backup_servers": [
+        {
+            "host": "backup1.ankeborg.nu",
+            "port": 22,
+            "user": "sjk",
+            "ssh_key_file": "/Users/sjk/.ssh/backup1.dsa",
+            "compression": true,
+            "bwlimit": 800
+        },
+        {
+            "host": "backup2.ankeborg.nu",
+            "port": 22,
+            "user": "sjk",
+            "ssh_key_file": "/Users/sjk/.ssh/backup2.dsa",
+            "compression": false,
+            "bwlimit": 0
+        }
+    ],
+    "paths": [
+        "/Users/sjk",
+        "/var/root"
+    ]
+}
