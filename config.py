@@ -86,7 +86,7 @@ if __name__ == "__main__":
     try:
         conf = ConfigGeneral()
     except ErrorUnknownConfigOption as e:
-        print "Unknown config options were found:"
+        print "Unknown config options were found in the general block:"
         print e.conf
         sys.exit()
 
