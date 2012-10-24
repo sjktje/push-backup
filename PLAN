@@ -97,3 +97,9 @@ dest/". So, just do the --log-file stuff in the command="" setting in
 authorized_keys.
 
 --bwlimit=whatever
+
+Perhaps one should skip daemonizing this and instead just use crontab, at or a
+OS X .plist entry (those do crontab stuff, don't they?) A neat OS X GUI could
+be created which generates the json config file. Or perhaps we should
+daemonize, have the daemon start at boot. The GUI idea would work in that case
+too.
