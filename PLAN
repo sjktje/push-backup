@@ -19,6 +19,10 @@ something.
         something, and as soon as they're done they would be moved to
         "servername-YYYY-MM-DD_HH_MM" or similar. Does rsync support this
         natively, or would it require some extra ssh trickery?
+
+Add support for running commands at the client before and after doing the
+actual backup, like for example creating and destroying zfs snapshots. 
+
 Use hard links, --link-dest and --fake-super etc.
 
 Config settings are saved in json format. A script is used to collect, modify
