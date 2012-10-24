@@ -12,6 +12,13 @@ something.
     and resumed again without having to remember the directory -- just follow
     "latest," and check if the directory ends with .incomplete or not. If it
     doesn't, start a new transfer. 
+        
+        Another idea is to not name the directories after the date when the
+        transfer was started, but rather the date when it's finished. So, new
+        transfers would be just be called "servername.incomplete" or
+        something, and as soon as they're done they would be moved to
+        "servername-YYYY-MM-DD_HH_MM" or similar. Does rsync support this
+        natively, or would it require some extra ssh trickery?
 Use hard links, --link-dest and --fake-super etc.
 
 Config settings are saved in json format. A script is used to collect, modify
