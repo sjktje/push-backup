@@ -4,6 +4,14 @@ Push backups to backup server(s).
 Update the time of last completed push in some file at the server, or
 something.
 
+    One would notice just by looking at the filenames. Incomplete transfers
+    would look something like: servername-2012-10-22_HH_MM.incomplete while
+    finished transfers look like servername-2012-10-22_HH_MM. No need to add
+    seconds, right? "latest" would be softlinked to the last transfer, no
+    matter if it's finished or not. That way the transfer can be interrupted
+    and resumed again without having to remember the directory -- just follow
+    "latest," and check if the directory ends with .incomplete or not. If it
+    doesn't, start a new transfer. 
 Use hard links, --link-dest and --fake-super etc.
 
 Config settings are saved in json format. A script is used to collect, modify
