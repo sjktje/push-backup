@@ -37,54 +37,42 @@ class ErrorUnknownConfigOption(Error):
         
 
 class Config():
-    """Superclass of all config classes. 
-    
-    Load the json formatted configuration file into self.config. Call
-    self.load, implemented by subclasses. 
-    """ 
     def __init__(self):
+        '''Load configuration file
+        
+        Load json formatted configuration file, backup.json. Exception
+        ErrorUnknownConfigOption is raised if unknown configuration options
+        are found. 
+        '''
         self.config = json.load(open('backup.json', 'r'))
-        self.load()
+        self.servers = []
 
-'''
-ConfigGeneral contains the stuff in the general block of the configuration
-file. Values can be retrieved and changed like so:
-
-c = ConfigGeneral()
-print c.frequency 
-c.frequency = 1440
-'''
-class ConfigGeneral(Config):
-    def load(self):
         for x in ['frequency', 'log_file', 'log_level', 'verbosity',
-        'daemonize']:
+                  'daemonize']:
             setattr(self, x, self.config['general'][x])
             del(self.config['general'][x])
 
         if self.config['general']:
             raise ErrorUnknownConfigOption(self.config['general'])
 
-    def save(self):
-        ''' 
-        Might just create a separate script to handle config file
-        manipulation.
-        '''
-        pass
+        for s in self.config['backup_servers']:
+            self.servers.append(ConfigServer(s))
 
-class ConfigServer(Config):
-    def load(self):
-        ''' XXX: Provide a dict containing backup server info? ''' 
-        pass
 
-    def save(self):
-        ''' See ConfigGeneral '''
-        pass
-                
+class ConfigServer():
+    def __init__(self, server_info):
+        for x in ['host', 'port', 'user', 'ssh_key_file', 'compression',
+                'bwlimit']:
+            setattr(self, x, server_info[x])
+            del(server_info[x])
+
+        if server_info:
+            raise ErrorUnknownConfigOption(server_info)
 
 
 if __name__ == "__main__":
     try:
-        conf = ConfigGeneral()
+        conf = Config()
     except ErrorUnknownConfigOption as e:
         print "Unknown config options were found in the general block:"
         print e.conf
@@ -92,3 +80,7 @@ if __name__ == "__main__":
 
     print conf.frequency
     print conf.log_file
+
+    for x in conf.servers:
+        print x.host
+
