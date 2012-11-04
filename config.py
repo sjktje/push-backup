@@ -34,7 +34,8 @@ class Error():
 class ErrorUnknownConfigOption(Error):
     """Exception used when unknown config options are found."""
     def __init__(self, conf):
-        self.conf = conf
+        print "Found unknown configuration option: " + str(conf)
+        sys.exit(1)
         
 class ErrorMissingConfigOption(Error):
     def __init__(self, e):
@@ -97,12 +98,7 @@ class ConfigServer():
 
 
 if __name__ == "__main__":
-    try:
-        conf = Config()
-    except ErrorUnknownConfigOption as e:
-        print "Unknown config options were found in the general block:"
-        print e.conf
-        sys.exit()
+    conf = Config()
 
     print conf.frequency
     print conf.log_file
