@@ -38,12 +38,12 @@ class ErrorUnknownConfigOption(Error):
 
 class Config():
     def __init__(self):
-        '''Load configuration file
+        """Load configuration file
         
         Load json formatted configuration file, backup.json. Exception
         ErrorUnknownConfigOption is raised if unknown configuration options
         are found. 
-        '''
+        """
         self.config = json.load(open('backup.json', 'r'))
         self.servers = []
 
