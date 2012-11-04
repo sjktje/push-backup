@@ -32,6 +32,7 @@ class Error():
     pass
 
 class ErrorUnknownConfigOption(Error):
+    """Exception used when unknown config options are found."""
     def __init__(self, conf):
         self.conf = conf
         
