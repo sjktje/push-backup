@@ -71,7 +71,7 @@ class ConfigGeneral(Config):
         '''
         pass
 
-class ConfigServers(Config):
+class ConfigServer(Config):
     def load(self):
         ''' XXX: Provide a dict containing backup server info? ''' 
         pass
