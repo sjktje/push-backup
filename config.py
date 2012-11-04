@@ -36,6 +36,11 @@ class ErrorUnknownConfigOption(Error):
     def __init__(self, conf):
         self.conf = conf
         
+class ErrorMissingConfigOption(Error):
+    def __init__(self, e):
+        print "Missing configuration option: " + str(e)
+        sys.exit(1)
+
 
 class Config():
     def __init__(self):
@@ -48,10 +53,13 @@ class Config():
         self.config = json.load(open('backup.json', 'r'))
         self.servers = []
 
-        for x in ['frequency', 'log_file', 'log_level', 'verbosity',
-                  'daemonize']:
-            setattr(self, x, self.config['general'][x])
-            del(self.config['general'][x])
+        try:
+            for x in ['frequency', 'log_file', 'log_level', 'verbosity',
+                      'daemonize']:
+                setattr(self, x, self.config['general'][x])
+                del(self.config['general'][x])
+        except KeyError, e:
+            raise ErrorMissingConfigOption(e)
 
         if self.config['general']:
             raise ErrorUnknownConfigOption(self.config['general'])
@@ -76,10 +84,13 @@ class ConfigServer():
     ErrorUnknownConfigOption.
     """
     def __init__(self, server_info):
-        for x in ['host', 'port', 'user', 'ssh_key_file', 'compression',
-                'bwlimit']:
-            setattr(self, x, server_info[x])
-            del(server_info[x])
+        try:
+            for x in ['host', 'port', 'user', 'ssh_key_file', 'compression',
+                      'bwlimit']:
+                setattr(self, x, server_info[x])
+                del(server_info[x])
+        except KeyError, e:
+            raise ErrorMissingConfigOption(e)
 
         if server_info:
             raise ErrorUnknownConfigOption(server_info)
