@@ -61,6 +61,19 @@ class Config():
 
 
 class ConfigServer():
+    """Store information about a backup server
+
+    Each ConfigServer object stores the following information:
+
+    host (string): hostname of backup server
+    port (int): port of backup server
+    user (string): ssh username
+    compression (boolean): whether to compress rsync traffic or not
+    bwlimit (string): bandwidth limit
+
+    If additional configuration entries are found, raise exception
+    ErrorUnknownConfigOption.
+    """
     def __init__(self, server_info):
         for x in ['host', 'port', 'user', 'ssh_key_file', 'compression',
                 'bwlimit']:
