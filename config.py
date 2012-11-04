@@ -36,12 +36,12 @@ class ErrorUnknownConfigOption(Error):
         self.conf = conf
         
 
-'''
-Config superclass. All config subclasses will need access to the
-configuration file. I realise this means the script will read the
-configuration file several times. Is there a neater way of doing this?
-'''
 class Config():
+    """Superclass of all config classes. 
+    
+    Load the json formatted configuration file into self.config. Call
+    self.load, implemented by subclasses. 
+    """ 
     def __init__(self):
         self.config = json.load(open('backup.json', 'r'))
         self.load()
