@@ -68,6 +68,7 @@ class ConfigServer():
     host (string): hostname of backup server
     port (int): port of backup server
     user (string): ssh username
+    ssh_key_file (string): rsa/dsa key file used to log in to host
     compression (boolean): whether to compress rsync traffic or not
     bwlimit (string): bandwidth limit
 
