@@ -44,6 +44,7 @@ class ErrorMissingConfigOption(Error):
 
 
 class Config():
+    """Store configuration options"""
     def __init__(self):
         """Load configuration file
         
