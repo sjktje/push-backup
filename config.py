@@ -24,8 +24,9 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import json
+import os
 import sys
+import json
 
 
 class Error():
@@ -40,6 +41,11 @@ class ErrorUnknownConfigOption(Error):
 class ErrorMissingConfigOption(Error):
     def __init__(self, e):
         print "Missing configuration option: " + str(e)
+        sys.exit(1)
+
+class ErrorNonexistentPath(Error):
+    def __init__(self, path):
+        print "Nonexistent backup path: " + path
         sys.exit(1)
 
 
@@ -68,6 +74,12 @@ class Config():
 
         for s in self.config['backup_servers']:
             self.servers.append(ConfigServer(s))
+
+        for path in self.config['paths']:
+            if not os.path.exists(path):
+                raise ErrorNonexistentPath(path)
+
+        self.paths = self.config['paths']
 
 
 class ConfigServer():
