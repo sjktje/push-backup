@@ -66,11 +66,12 @@ class Rsync():
         else:
             return False
 
-    def check_version(self):
-        """Check which version of rsync we have access to
+    def check_version(self, required):
+        """Check if the rsync program is of the required version 
         
-        This function relies on rsync being in PATH. Use exists_rsync() to
-        check if that is the case.
+        Feed check_version a version in tuple format, for example (3,0,9). If
+        that version of rsync (or newer) is installed, return True, otherwise
+        False. 
         """
         version_line = subprocess.check_output(
                 ['rsync', '--version']
@@ -79,7 +80,13 @@ class Rsync():
             'rsync\s+version\s((?:\d+\.){2}\d+)\s+protocol\sversion\s\d+',
             version_line)
 
-        return version.group(1)
+        our_version = tuple(map(int, version.group(1).split('.')))
+
+        if our_version < required:
+            return False
+        else:
+            return True
+
 
 if __name__ == "__main__":
     rsync = Rsync()
