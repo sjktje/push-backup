@@ -47,10 +47,10 @@ class Rsync():
     switches = [
             '--acls', '--archive', '--compress', '--crtimes', '--delete',
             '--delete-excluded', '--devices', '--fake-super',
-            '--fileflags', '--group', '--hard-links', '--hfs-compression',
+            '--fileflags', '--group', '--hard-links', 
             '--human-readable', '--link-dest', '--log-file=~/rsync.log',
             '--numeric-ids', '--one-file-system', '--owner', '--partial',
-            '--perms', '--protect-decmpfs', '--relative', '--specials',
+            '--perms', '--relative', '--specials',
             '--times', '--xattrs'
     ]
 
