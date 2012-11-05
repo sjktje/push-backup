@@ -89,11 +89,14 @@ class Rsync():
 
 
 if __name__ == "__main__":
-    rsync = Rsync()
+    rsync = Rsync({'bwlimit': 400})
 
     if not rsync.exists_rsync():
         print "rsync does not seem to be installed -- " + \
             "at least it is not in your PATH."
         sys.exit(1)
 
-    print rsync.check_version()
+    if not rsync.check_version((3,0,9)):
+        print "The version of rsync installed on this system is too old. " + \
+                "Please upgrade!"
+        sys.exit(1)
