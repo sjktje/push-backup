@@ -26,19 +26,6 @@
  
 from config import Config
 
-class backup():
-    def __init__(self):
-        self.switches = [
-                '--acls', '--archive', '--bwlimit=if applicable',
-                '--compress', '--crtimes', '--delete', '--delete-excluded',
-                '--devices', '--fake-super', '--fileflags', '--group',
-                '--hard-links', '--hfs-compression', '--human-readable',
-                '--link-dest', '--log-file=maybe' '--numeric-ids',
-                '--one-file-system', '--owner', '--partial', '--partial',
-                '--perms', '--protect-decmpfs', '--relative', '--specials',
-                '--times', '--xattrs'
-        ]
-
 conf = Config()
 
 for a in conf.servers:
