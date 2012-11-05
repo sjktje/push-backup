@@ -24,6 +24,7 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  
+from config import Config
 
 class backup():
     def __init__(self):
@@ -38,5 +39,7 @@ class backup():
                 '--times', '--xattrs'
         ]
 
-bu = backup()
+conf = Config()
 
+for a in conf.servers:
+    print a.host
