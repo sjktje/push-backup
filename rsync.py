@@ -58,6 +58,9 @@ class Rsync():
         if options['bwlimit'] is not 0:
             self.switches.append('--bwlimit ' + str(options['bwlimit']))
 
+        #if sys.platform == 'darwin':
+        #    set darwin-specific flags 
+
     
     def exists_rsync(self):
         """Check if rsync program is in PATH"""
