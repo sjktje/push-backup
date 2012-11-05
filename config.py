@@ -79,7 +79,6 @@ class Config():
             if not os.path.exists(path):
                 raise ErrorNonexistentPath(path)
 
-        self.paths = self.config['paths']
 
 
 class ConfigServer():
@@ -100,7 +99,7 @@ class ConfigServer():
     def __init__(self, server_info):
         try:
             for x in ['host', 'port', 'user', 'ssh_key_file', 'compression',
-                      'bwlimit']:
+                      'bwlimit', 'paths']:
                 setattr(self, x, server_info[x])
                 del(server_info[x])
         except KeyError, e:
@@ -118,4 +117,6 @@ if __name__ == "__main__":
 
     for x in conf.servers:
         print x.host
+        for y in x.paths:
+            print y
 
