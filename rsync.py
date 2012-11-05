@@ -44,17 +44,20 @@ def exists_in_path(program):
     return False
 
 class Rsync():
-    def __init__(self):
-        self.switches = [
-                '--acls', '--archive', '--bwlimit=if applicable',
-                '--compress', '--crtimes', '--delete', '--delete-excluded',
-                '--devices', '--fake-super', '--fileflags', '--group',
-                '--hard-links', '--hfs-compression', '--human-readable',
-                '--link-dest', '--log-file=maybe' '--numeric-ids',
-                '--one-file-system', '--owner', '--partial', '--partial',
-                '--perms', '--protect-decmpfs', '--relative', '--specials',
-                '--times', '--xattrs'
-        ]
+    switches = [
+            '--acls', '--archive', '--compress', '--crtimes', '--delete',
+            '--delete-excluded', '--devices', '--fake-super',
+            '--fileflags', '--group', '--hard-links', '--hfs-compression',
+            '--human-readable', '--link-dest', '--log-file=~/rsync.log',
+            '--numeric-ids', '--one-file-system', '--owner', '--partial',
+            '--perms', '--protect-decmpfs', '--relative', '--specials',
+            '--times', '--xattrs'
+    ]
+
+    def __init__(self, options):
+        if options['bwlimit'] is not 0:
+            self.switches.append('--bwlimit ' + str(options['bwlimit']))
+
     
     def exists_rsync(self):
         """Check if rsync program is in PATH"""
