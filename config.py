@@ -92,6 +92,7 @@ class ConfigServer():
     ssh_key_file (string): rsa/dsa key file used to log in to host
     compression (boolean): whether to compress rsync traffic or not
     bwlimit (string): bandwidth limit
+    paths (list of strings): paths to backup
 
     If additional configuration entries are found, raise exception
     ErrorUnknownConfigOption.
