@@ -25,8 +25,10 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  
 from config import Config
+from rsync import Rsync
 
 conf = Config()
 
-for a in conf.servers:
-    print a.host
+for server in conf.servers:
+    rsync = Rsync(server)
+    rsync.run()
