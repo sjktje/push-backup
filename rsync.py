@@ -68,6 +68,17 @@ class Rsync():
         #if sys.platform == 'darwin':
         #    set darwin-specific flags 
 
+    def run(self):
+        for path in self.server.paths:
+            rsync_cmd = "rsync "
+            for a in self.switches:
+                rsync_cmd += ' ' + a
+
+            print "Rsync: " + rsync_cmd
+            rsync_cmd += ' ' + path
+            rsync_cmd += ' ' + self.server.host + ':.'
+            print rsync_cmd
+
     def exists_rsync(self):
         """Check if rsync program is in PATH"""
         if exists_in_path('rsync'):
