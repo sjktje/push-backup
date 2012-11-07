@@ -60,7 +60,7 @@ class Rsync():
 
     def __init__(self, server):
         if not server:
-            print "Rsync() was called without a Config object. This is a bug."
+            print "Rsync() was called without a ConfigServer object. This is a bug."
             sys.exit(1)
 
         self.server = server
