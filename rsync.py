@@ -74,9 +74,11 @@ class Rsync():
             for a in self.switches:
                 rsync_cmd += ' ' + a
 
+            # XXX: Things shouldn't be rsynced to remote_path but to
+            # remote_path/our-name.YYYY-MM-DD_HH-MM or something.
             print "Rsync: " + rsync_cmd
-            rsync_cmd += ' ' + path
-            rsync_cmd += ' ' + self.server.host + ':.'
+            rsync_cmd += " {} {}:'{}'".format(path, self.server.host,
+                                              self.server.remote_path)
             print rsync_cmd
 
     def exists_rsync(self):

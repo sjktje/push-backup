@@ -100,7 +100,7 @@ class ConfigServer():
     def __init__(self, server_info):
         try:
             for x in ['host', 'port', 'user', 'ssh_key_file', 'compression',
-                      'bwlimit', 'paths']:
+                      'bwlimit', 'remote_path', 'paths']:
                 setattr(self, x, server_info[x])
                 del(server_info[x])
         except KeyError, e:

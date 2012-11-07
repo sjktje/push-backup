@@ -14,6 +14,7 @@
             "ssh_key_file": "/Users/sjk/.ssh/backup1.dsa",
             "compression": true,
             "bwlimit": 800,
+            "remote_path": "backups",
             "paths": [ 
                 "/Users/sjk", 
                 "/var/root" 
@@ -26,6 +27,7 @@
             "ssh_key_file": "/Users/sjk/.ssh/backup2.dsa",
             "compression": false,
             "bwlimit": 0,
+            "remote_path": "backups",
             "paths": [ 
                 "/Users/sjk", 
                 "/var/root" 
