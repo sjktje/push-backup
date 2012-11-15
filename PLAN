@@ -20,6 +20,11 @@ something.
         "servername-YYYY-MM-DD_HH_MM" or similar. Does rsync support this
         natively, or would it require some extra ssh trickery?
 
+            Having thought about it for a while, I think I should go for the
+            first option, adding the date when the backup was initiated, to the
+            filename. If one is backing up a zfs snapshot, for example, the
+            date of completion could confuse you.
+
 Add support for running commands at the client before and after doing the
 actual backup, like for example creating and destroying zfs snapshots.
 
