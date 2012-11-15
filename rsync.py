@@ -46,7 +46,10 @@ def exists_in_path(program):
 class Rsync():
     """Handle calls to the rsync program
 
-    The rsync class requires a ConfigServer object to be passed to it.
+    Required arguments:
+
+    server - ConfigServer object
+    config - config object
     """
     switches = [
             '--acls', '--archive', '--compress', '--crtimes', '--delete',
@@ -58,12 +61,17 @@ class Rsync():
             '--times', '--xattrs'
     ]
 
-    def __init__(self, server):
+    def __init__(self, server, config):
         if not server:
             print "Rsync() was called without a ConfigServer object. This is a bug."
             sys.exit(1)
 
+        if not config:
+            print "Rsync() was called without a Config object. This is a bug."
+            sys.exit(1)
+
         self.server = server
+        self.config = config
 
         #if sys.platform == 'darwin':
         #    set darwin-specific flags

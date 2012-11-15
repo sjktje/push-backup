@@ -30,5 +30,5 @@ from rsync import Rsync
 conf = Config()
 
 for server in conf.servers:
-    rsync = Rsync(server)
+    rsync = Rsync(server, conf)
     rsync.run()
