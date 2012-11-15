@@ -108,3 +108,10 @@ OS X .plist entry (those do crontab stuff, don't they?) A neat OS X GUI could
 be created which generates the json config file. Or perhaps we should
 daemonize, have the daemon start at boot. The GUI idea would work in that case
 too.
+
+    A crontab entry (or OS X .plist thingy) together with a random 'wait' in
+    the script could work. Like, if the script is called from cron (that
+    should be detectable) or plist (don't know if that is detectable), add a
+    30--120 minute wait before starting the syncs (this in order to stop
+    everyone from hammering the server at 3 am.) When the script is run by a
+    user (with a tty,) just rsync right away.
