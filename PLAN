@@ -1,5 +1,5 @@
 
-Push backups to backup server(s). 
+Push backups to backup server(s).
 
 Update the time of last completed push in some file at the server, or
 something.
@@ -11,8 +11,8 @@ something.
     matter if it's finished or not. That way the transfer can be interrupted
     and resumed again without having to remember the directory -- just follow
     "latest," and check if the directory ends with .incomplete or not. If it
-    doesn't, start a new transfer. 
-        
+    doesn't, start a new transfer.
+
         Another idea is to not name the directories after the date when the
         transfer was started, but rather the date when it's finished. So, new
         transfers would be just be called "servername.incomplete" or
@@ -21,7 +21,7 @@ something.
         natively, or would it require some extra ssh trickery?
 
 Add support for running commands at the client before and after doing the
-actual backup, like for example creating and destroying zfs snapshots. 
+actual backup, like for example creating and destroying zfs snapshots.
 
 Use hard links, --link-dest and --fake-super etc.
 
@@ -35,7 +35,7 @@ allows for more control?
 Develop backend-side script to run from authorized_keys command="" to only
 allow backing up, browsing and restoring data. If user ssh's in to account,
 show them a simple CLI interface where they get to know how much space they
-have used, etc. 
+have used, etc.
 
 How is data transfer tracked?
 
