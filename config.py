@@ -73,12 +73,10 @@ class Config():
             raise ErrorUnknownConfigOption(self.config['general'])
 
         for s in self.config['backup_servers']:
+            for path in s['paths']:
+                if not os.path.exists(path):
+                    raise ErrorNonexistentPath(path)
             self.servers.append(ConfigServer(s))
-
-        for path in self.config['paths']:
-            if not os.path.exists(path):
-                raise ErrorNonexistentPath(path)
-
 
 
 class ConfigServer():
