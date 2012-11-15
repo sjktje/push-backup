@@ -70,7 +70,7 @@ class Rsync():
 
     def run(self):
         for path in self.server.paths:
-            rsync_cmd = "rsync "
+            rsync_cmd = "rsync"
             for a in self.switches:
                 rsync_cmd += ' ' + a
 
