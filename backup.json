@@ -16,8 +16,8 @@
             "bwlimit": 0,
             "remote_path": "backup-dev",
             "paths": [
-                "/Users/sjk/Code/push-backup/",
+                "/Users/sjk/Code/push-backup/"
             ]
-        },
-    ],
+        }
+    ]
 }
