@@ -55,7 +55,7 @@ class Rsync():
             '--acls', '--archive', '--compress', '--crtimes', '--delete',
             '--delete-excluded', '--devices', '--fake-super',
             '--fileflags', '--group', '--hard-links',
-            '--human-readable', '--link-dest',
+            '--human-readable',
             '--numeric-ids', '--one-file-system', '--owner', '--partial',
             '--perms', '--relative', '--specials',
             '--times', '--xattrs'
@@ -73,11 +73,19 @@ class Rsync():
         self.server = server
         self.config = config
 
+        # XXX: Use the proper os functions for concatenating paths
+        self.target_base = self.server.remote_path
+        self.target_dir = self.target_base + '/' + self.config.my_name
+        self.target_latest = self.target_dir + '.latest'
+        self.target_incomplete = self.target_dir + '.incomplete'
+
         #if sys.platform == 'darwin':
         #    set darwin-specific flags
 
         if hasattr(config, 'log_file'):
             self.switches.append('--log-file=' + self.config.log_file)
+
+        self.switches.append('--link-dest=' + self.target_latest)
 
     def run(self):
         for path in self.server.paths:
@@ -88,7 +96,7 @@ class Rsync():
             # XXX: Things shouldn't be rsynced to remote_path but to
             # remote_path/our-name.YYYY-MM-DD_HH-MM or something.
             rsync_cmd += " {} {}:'{}'".format(path, self.server.host,
-                                              self.server.remote_path)
+                                              self.target_incomplete)
             print rsync_cmd
 
     def exists_rsync(self):
