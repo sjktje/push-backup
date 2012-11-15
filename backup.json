@@ -1,5 +1,6 @@
 {
     "general": {
+        "my_name": "tea",
         "frequency": 1440,
         "log_file": "/Users/sjk/logs/backup.log",
         "log_level": 3,

@@ -24,10 +24,10 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import os
-import sys
 import json
-
+import os
+import platform
+import sys
 
 class Error():
     pass
@@ -63,11 +63,15 @@ class Config():
 
         try:
             for x in ['frequency', 'log_file', 'log_level', 'verbosity',
-                      'daemonize']:
+                      'daemonize', 'my_name']:
                 setattr(self, x, self.config['general'][x])
                 del(self.config['general'][x])
         except KeyError, e:
-            raise ErrorMissingConfigOption(e)
+            # Use 'uname -n' if my_name is not in config file.
+            if x is 'my_name':
+                setattr(self, x, platform.node())
+            else:
+                raise ErrorMissingConfigOption(e)
 
         if self.config['general']:
             raise ErrorUnknownConfigOption(self.config['general'])
