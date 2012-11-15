@@ -5,14 +5,14 @@
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-# 1. Redistributions of source code must retain the above copyright notice, 
-# this list of conditions and the following disclaimer.  
-# 
+#
+# 1. Redistributions of source code must retain the above copyright notice,
+# this list of conditions and the following disclaimer.
+#
 # 2. Redistributions in binary form must reproduce the above copyright notice,
 # this list of conditions and the following disclaimer in the documentation
-# and/or other materials provided with the distribution. 
-# 
+# and/or other materials provided with the distribution.
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,7 +23,7 @@
 # CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- 
+
 import os
 import re
 import subprocess
@@ -35,7 +35,7 @@ def is_executable(f):
 
 def exists_in_path(program):
     """Check if program is in PATH.
-    
+
     Return True if it is, return False if it is not.
     """
     for path in os.environ["PATH"].split(os.pathsep):
@@ -51,7 +51,7 @@ class Rsync():
     switches = [
             '--acls', '--archive', '--compress', '--crtimes', '--delete',
             '--delete-excluded', '--devices', '--fake-super',
-            '--fileflags', '--group', '--hard-links', 
+            '--fileflags', '--group', '--hard-links',
             '--human-readable', '--link-dest', '--log-file=~/rsync.log',
             '--numeric-ids', '--one-file-system', '--owner', '--partial',
             '--perms', '--relative', '--specials',
@@ -66,7 +66,7 @@ class Rsync():
         self.server = server
 
         #if sys.platform == 'darwin':
-        #    set darwin-specific flags 
+        #    set darwin-specific flags
 
     def run(self):
         for path in self.server.paths:
@@ -88,11 +88,11 @@ class Rsync():
             return False
 
     def check_version(self, required):
-        """Check if the rsync program is of the required version 
-        
+        """Check if the rsync program is of the required version
+
         Feed check_version a version in tuple format, for example (3,0,9). If
         that version of rsync (or newer) is installed, return True, otherwise
-        False. 
+        False.
         """
         version_line = subprocess.check_output(
                 ['rsync', '--version']
