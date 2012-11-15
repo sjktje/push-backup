@@ -55,7 +55,7 @@ class Rsync():
             '--acls', '--archive', '--compress', '--crtimes', '--delete',
             '--delete-excluded', '--devices', '--fake-super',
             '--fileflags', '--group', '--hard-links',
-            '--human-readable', '--link-dest', '--log-file=~/rsync.log',
+            '--human-readable', '--link-dest',
             '--numeric-ids', '--one-file-system', '--owner', '--partial',
             '--perms', '--relative', '--specials',
             '--times', '--xattrs'
@@ -75,6 +75,9 @@ class Rsync():
 
         #if sys.platform == 'darwin':
         #    set darwin-specific flags
+
+        if hasattr(config, 'log_file'):
+            self.switches.append('--log-file=' + self.config.log_file)
 
     def run(self):
         for path in self.server.paths:
