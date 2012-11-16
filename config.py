@@ -50,7 +50,16 @@ class ErrorNonexistentPath(Error):
 
 
 class Config():
-    """Store configuration options"""
+    """Store configuration options
+
+    The following data is saved:
+
+    my_name (string): name of this machine
+    frequency (int): how often to backup (in minutes)
+    log_file (string): log for rsync transfer info
+    verbosity (int): verbosity of script
+    daemonize (bool): whether to daemonize or not
+    """
     def __init__(self):
         """Load configuration file
 
