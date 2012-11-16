@@ -53,12 +53,10 @@ class Rsync():
     """
     switches = [
             '--acls', '--archive', '--compress', '--crtimes', '--delete',
-            '--delete-excluded', '--devices', '--fake-super',
-            '--fileflags', '--group', '--hard-links',
-            '--human-readable',
-            '--numeric-ids', '--one-file-system', '--owner', '--partial',
-            '--perms', '--relative', '--specials',
-            '--times', '--xattrs'
+            '--delete-excluded', '--devices', '--fake-super', '--fileflags',
+            '--group', '--hard-links', '--human-readable', '--numeric-ids',
+            '--one-file-system', '--owner', '--partial', '--perms',
+            '--relative', '--specials', '--times', '--xattrs'
     ]
 
     def __init__(self, server, config):
