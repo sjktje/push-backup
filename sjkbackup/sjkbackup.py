@@ -28,18 +28,21 @@ import sys
 from config import Config
 from rsync import Rsync, Utils
 
-utils = Utils()
+def run(argv):
+    print "DEBUG: "
+    print argv
+    utils = Utils()
 
-if not utils.exists_rsync():
-    print "Could not find rsync -- is it installed?"
-    sys.exit(1)
+    if not utils.exists_rsync():
+        print "Could not find rsync -- is it installed?"
+        sys.exit(1)
 
-if not utils.check_version((3,0,9)):
-    print "Installed rsync is too old. Please upgrade!"
-    sys.exit(1)
+    if not utils.check_version((3,0,9)):
+        print "Installed rsync is too old. Please upgrade!"
+        sys.exit(1)
 
-conf = Config()
+    conf = Config()
 
-for server in conf.servers:
-    rsync = Rsync(server, conf)
-    rsync.run()
+    for server in conf.servers:
+        rsync = Rsync(server, conf)
+        rsync.run()
