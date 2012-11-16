@@ -75,6 +75,8 @@ class Config():
                       'daemonize', 'my_name']:
                 setattr(self, x, self.config['general'][x])
                 del(self.config['general'][x])
+            if not self.my_name:
+                self.my_name = platform.node()
         except KeyError, e:
             # Use 'uname -n' if my_name is not in config file.
             if x is 'my_name':
