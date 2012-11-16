@@ -67,7 +67,7 @@ class Config():
         ErrorUnknownConfigOption is raised if unknown configuration options
         are found.
         """
-        self.config = json.load(open('backup.json', 'r'))
+        self.config = json.load(open('../backup.json', 'r'))
         self.servers = []
 
         try:
