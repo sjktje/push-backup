@@ -122,8 +122,6 @@ class Rsync():
             for a in self.switches:
                 rsync_cmd += ' ' + a
 
-            # XXX: Things shouldn't be rsynced to remote_path but to
-            # remote_path/our-name.YYYY-MM-DD_HH-MM or something.
             rsync_cmd += " {} {}:'{}'".format(path, self.server.host,
                                               self.target_incomplete)
             print rsync_cmd
