@@ -24,8 +24,19 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import sys
 from config import Config
 from rsync import Rsync, Utils
+
+utils = Utils()
+
+if not utils.exists_rsync():
+    print "Could not find rsync -- is it installed?"
+    sys.exit(1)
+
+if not utils.check_version((3,0,9)):
+    print "Installed rsync is too old. Please upgrade!"
+    sys.exit(1)
 
 conf = Config()
 
