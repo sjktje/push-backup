@@ -25,7 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from config import Config
-from rsync import Rsync
+from rsync import Rsync, Utils
 
 conf = Config()
 

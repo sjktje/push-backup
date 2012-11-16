@@ -43,6 +43,38 @@ def exists_in_path(program):
             return True
     return False
 
+class Utils():
+    def __init__(self):
+        pass
+
+    def exists_rsync(self):
+        """Check if rsync program is in PATH"""
+        if exists_in_path('rsync'):
+            return True
+        else:
+            return False
+
+    def check_version(self, required):
+        """Check if the rsync program is of the required version
+
+        Feed check_version a version in tuple format, for example (3,0,9). If
+        that version of rsync (or newer) is installed, return True, otherwise
+        False.
+        """
+        version_line = subprocess.check_output(
+                ['rsync', '--version']
+                ).split("\n")[0]
+        version = re.match(
+            'rsync\s+version\s((?:\d+\.){2}\d+)\s+protocol\sversion\s\d+',
+            version_line)
+
+        our_version = tuple(map(int, version.group(1).split('.')))
+
+        if our_version < required:
+            return False
+        else:
+            return True
+
 class Rsync():
     """Handle calls to the rsync program
 
@@ -96,44 +128,17 @@ class Rsync():
                                               self.target_incomplete)
             print rsync_cmd
 
-    def exists_rsync(self):
-        """Check if rsync program is in PATH"""
-        if exists_in_path('rsync'):
-            return True
-        else:
-            return False
-
-    def check_version(self, required):
-        """Check if the rsync program is of the required version
-
-        Feed check_version a version in tuple format, for example (3,0,9). If
-        that version of rsync (or newer) is installed, return True, otherwise
-        False.
-        """
-        version_line = subprocess.check_output(
-                ['rsync', '--version']
-                ).split("\n")[0]
-        version = re.match(
-            'rsync\s+version\s((?:\d+\.){2}\d+)\s+protocol\sversion\s\d+',
-            version_line)
-
-        our_version = tuple(map(int, version.group(1).split('.')))
-
-        if our_version < required:
-            return False
-        else:
-            return True
 
 
 if __name__ == "__main__":
-    rsync = Rsync({'bwlimit': 400})
+    utils = Utils()
 
-    if not rsync.exists_rsync():
+    if not utils.exists_rsync():
         print "rsync does not seem to be installed -- " + \
             "at least it is not in your PATH."
         sys.exit(1)
 
-    if not rsync.check_version((3,0,9)):
+    if not utils.check_version((3,0,9)):
         print "The version of rsync installed on this system is too old. " + \
                 "Please upgrade!"
         sys.exit(1)
