@@ -71,9 +71,8 @@ class Rsync():
         self.server = server
         self.config = config
 
-        # XXX: Use the proper os functions for concatenating paths
         self.target_base = self.server.remote_path
-        self.target_dir = self.target_base + '/' + self.config.my_name
+        self.target_dir = os.path.join(self.target_base, self.config.my_name)
         self.target_latest = self.target_dir + '.latest'
         self.target_incomplete = self.target_dir + '.incomplete'
 
