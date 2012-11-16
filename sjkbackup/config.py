@@ -57,8 +57,10 @@ class Config():
     my_name (string): name of this machine
     frequency (int): how often to backup (in minutes)
     log_file (string): log for rsync transfer info
-    verbosity (int): verbosity of script
+    verbosity* (int): verbosity of script
     daemonize (bool): whether to daemonize or not
+
+    Settings marked with '*' can be changed from the command line.
     """
     def __init__(self):
         """Load configuration file
@@ -78,9 +80,11 @@ class Config():
             if not self.my_name:
                 self.my_name = platform.node()
         except KeyError, e:
-            # Use 'uname -n' if my_name is not in config file.
+            # Set defaults
             if x is 'my_name':
                 setattr(self, x, platform.node())
+            if x is 'verbosity':
+                setattr(self, x, 0)
             else:
                 raise ErrorMissingConfigOption(e)
 

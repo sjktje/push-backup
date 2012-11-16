@@ -24,13 +24,32 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import argparse
 import sys
+
 from config import Config
 from rsync import Rsync, Utils
 
 def run(argv):
-    print "DEBUG: "
-    print argv
+    parser = argparse.ArgumentParser(
+            description='Add a more elaborate description here, later.'
+    )
+
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help='throw a racket about what we are doing')
+    parser.add_argument('-V', '--version', action='store_true',
+                        help='show program version')
+    args = parser.parse_args(argv)
+
+    if args.version:
+        print 'This will print the program version some day.'
+        sys.exit(0)
+
+    conf = Config()
+
+    if args.verbose:
+        conf.verbose = True
+
     utils = Utils()
 
     if not utils.exists_rsync():
@@ -41,7 +60,6 @@ def run(argv):
         print "Installed rsync is too old. Please upgrade!"
         sys.exit(1)
 
-    conf = Config()
 
     for server in conf.servers:
         rsync = Rsync(server, conf)
