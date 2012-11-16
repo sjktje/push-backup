@@ -27,4 +27,4 @@
 import sys
 from sjkbackup import sjkbackup
 
-sjkbackup.run(sys.argv)
+sjkbackup.run(sys.argv[1:])
