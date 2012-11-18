@@ -37,13 +37,9 @@ def run(argv):
 
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='throw a racket about what we are doing')
-    parser.add_argument('-V', '--version', action='store_true',
-                        help='show program version')
+    parser.add_argument('-V', '--version', action='version',
+                        version='%(prog)s 0.1-alpha')
     args = parser.parse_args(argv)
-
-    if args.version:
-        print 'This will print the program version some day.'
-        sys.exit(0)
 
     conf = Config()
 
